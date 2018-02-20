@@ -2,5 +2,5 @@
 .gitignore
 **/migrations/*
 venv
-idea/*
-venv1
+.idea/*
+db.sqlite3
