@@ -21,16 +21,16 @@ PROJECT_DIR = os.path.dirname(__file__)
 # SECURITY WARNING: don't run with debug turned on in production!
 if socket.gethostname() == '85964.local':
     DEBUG = False
-    PUBLIC_DIR = '/home/root/www/dentalboutique/public/'
+    PUBLIC_DIR = '/home/root/www/torgame/public/'
     # print('Debug = False')
 else:
     DEBUG = True
     PUBLIC_DIR = os.path.join(PROJECT_DIR, 'public')
     # print('Debug = True')
 
-# STATICFILES_DIRS = (
-#     os.path.join(PROJECT_DIR, 'static'),
-# )
+STATICFILES_DIRS = (
+    os.path.join(PROJECT_DIR, 'static'),
+)
 
 STATIC_ROOT = os.path.join(PUBLIC_DIR, 'static')
 STATIC_URL = '/static/'
@@ -60,6 +60,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'game',
+    # 'tor',
     # The following apps are required:
     'django.contrib.sites',
 
