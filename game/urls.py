@@ -6,4 +6,5 @@ app_name="game"
 
 urlpatterns = [
     path('connect', connect, name='connect'),
+    path('dashboard', dashboard, name='connect'),
 ]

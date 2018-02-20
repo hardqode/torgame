@@ -22,13 +22,12 @@
     <link href="{% static 'tor/css/style.css' %}" rel="stylesheet">
 </head>
 <body>
-<div class="content">
-    <div class="row">
-        <div class="col-4">1</div>
-        <div class="col-4">2</div>
-        <div class="col-4">3</div>
-    </div>
-</div>
+<header>
+    <h1 class="text-center pt-5">TorGame</h1>
+</header>
+{% block content %}
+
+{% endblock %}
 
 <script src="{% static 'tor/js/jquery-3.2.1.min.js' %}"></script>
 <script src="{% static 'tor/js/bootstrap.min.js' %}"></script>

@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container">
+        <div class="row pt-5">
+            <!-- Список игроков -->
+            <div class="col-12 pb-4">
+                <h3>Игроки</h3>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Игрок</th>
+                        <th>Баланс, руб.</th>
+                        <th>Материалы, шт.</th>
+                        <th>Продукция, шт.</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>Mark</td>
+                        <td>20000</td>
+                        <td>5</td>
+                        <td>3</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            {% if user.is_superuser or user.is_staff %}
+                <div class="col-md-4 col-12">
+                    <form action="">
+                        <div class="form-group">
+                            <label for="formGroupExampleInput">Количество реализуемого сырья</label>
+                            <input type="text" class="form-control" id="formGroupExampleInput" {% if round.is_active %} value="{{ round.count_material }}" disabled {% else %} value="20" {% endif %}>
+                        </div>
+                        <div class="form-group">
+                            <label for="formGroupExampleInput">Количество покупаемой продукции</label>
+                            <input type="text" class="form-control" id="formGroupExampleInput" value="20" >
+                        </div>
+                        <div class="form-group">
+                            <label for="formGroupExampleInput">Минимальная стоимость покупки сырья</label>
+                            <input type="text" class="form-control" id="formGroupExampleInput" value="1000" >
+                        </div>
+                        <div class="form-group">
+                            <label for="formGroupExampleInput">Максимальная стоимость продажи продукции</label>
+                            <input type="text" class="form-control" id="formGroupExampleInput" value="10000" >
+                        </div>
+                        <div class="form-group">
+                            <label for="formGroupExampleInput">Стоимость переработки сырья в продукцию</label>
+                            <input type="text" class="form-control" id="formGroupExampleInput" value="500" >
+                        </div>
+                        <div class="form-group">
+                            <label for="formGroupExampleInput">Стоимость хранения сырья</label>
+                            <input type="text" class="form-control" id="formGroupExampleInput" value="500" >
+                        </div>
+                        <div class="form-group">
+                            <label for="formGroupExampleInput">Стоимость хранения продукции</label>
+                            <input type="text" class="form-control" id="formGroupExampleInput" value="1000" >
+                        </div>
+                        <div class="form-group">
+                            <label for="formGroupExampleInput">Налог</label>
+                            <input type="text" class="form-control" id="formGroupExampleInput" value="1000" >
+                        </div>
+                        {% if round.is_active %}
+                            <input type="text" name="id" value="{{ round.id }}" hidden>
+                            <button type="submit" class="btn btn-primary">Завершить раунд</button>
+                        {% else %}
+                            <button type="submit" class="btn btn-primary">Начать раунд</button>
+                        {% endif %}
+                    </form>
+                </div>
+            {% endif %}
+            <div class="col-md-8 col-12">
+                <h3>Раунды</h3>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Кол-во сырья</th>
+                        <th>Кол-во продукции</th>
+                        <th>Покупка сырья</th>
+                        <th>Продажа продукции</th>
+                        <th>Переработка</th>
+                        <th>Хранение сырья</th>
+                        <th>Хранение продукции</th>
+                        <th>Налог</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>20</td>
+                        <td>20</td>
+                        <td>1000</td>
+                        <td>10000</td>
+                        <td>500</td>
+                        <td>500</td>
+                        <td>1000</td>
+                        <td>1000</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}
