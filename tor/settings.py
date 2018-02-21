@@ -20,7 +20,7 @@ PROJECT_DIR = os.path.dirname(__file__)
 
 # SECURITY WARNING: don't run with debug turned on in production!
 if socket.gethostname() == '85964.local':
-    DEBUG = False
+    DEBUG = True
     PUBLIC_DIR = '/home/root/www/torgame/public/'
     # print('Debug = False')
 else:
@@ -141,9 +141,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ru-ru'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Moscow'
 
 USE_I18N = True
 
