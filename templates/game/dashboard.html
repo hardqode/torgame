@@ -17,13 +17,15 @@
                     </tr>
                     </thead>
                     <tbody>
+                    {% for player in players %}
                     <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>20000</td>
-                        <td>5</td>
-                        <td>3</td>
+                        <th scope="row">{{ player.id }}</th>
+                        <td>{{ player.user }}</td>
+                        <td>{{ player.balance }}</td>
+                        <td>{{ player.material }}</td>
+                        <td>{{ player.product }}</td>
                     </tr>
+                    {% endfor %}
                     </tbody>
                 </table>
             </div>
@@ -88,17 +90,19 @@
                     </tr>
                     </thead>
                     <tbody>
+                    {% for round in rounds %}
                     <tr>
-                        <th scope="row">1</th>
-                        <td>20</td>
-                        <td>20</td>
-                        <td>1000</td>
-                        <td>10000</td>
-                        <td>500</td>
-                        <td>500</td>
-                        <td>1000</td>
-                        <td>1000</td>
+                        <th scope="row">{{ round.id }}</th>
+                        <td>{{ transaction_type.count_materials }}</td>
+                        <td>{{ transaction_type.count_goods }}</td>
+                        <td>{{ round.buy_minimal_materials }}</td>
+                        <td>{{ round.sell_max_goods }}</td>
+                        <td>{{ round.recycling }}</td>
+                        <td>{{ round.store_materials }}</td>
+                        <td>{{ round.store_goods }}</td>
+                        <td>{{ round.tax }}</td>
                     </tr>
+                    {% endfor %}
                     </tbody>
                 </table>
             </div>
