@@ -32,9 +32,10 @@
             {% if user.is_superuser or user.is_staff %}
                 <div class="col-md-4 col-12">
                     <form action="">
+                        {% if not round %}
                         <div class="form-group">
                             <label for="formGroupExampleInput">Количество реализуемого сырья</label>
-                            <input type="text" class="form-control" id="formGroupExampleInput" {% if round.is_active %} value="{{ round.count_material }}" disabled {% else %} value="20" {% endif %}>
+                            <input type="text" class="form-control" id="formGroupExampleInput" value="20">
                         </div>
                         <div class="form-group">
                             <label for="formGroupExampleInput">Количество покупаемой продукции</label>
@@ -64,11 +65,22 @@
                             <label for="formGroupExampleInput">Налог</label>
                             <input type="text" class="form-control" id="formGroupExampleInput" value="1000" >
                         </div>
-                        {% if round.is_active %}
+                        <button type="submit" class="btn btn-primary">Начать раунд</button>
+                        {% else %}
+                            <p>Данные по раунду:</p>
+                            <p>{{ round.id }}</p>
+                            <p>{{ round.buy_minimal_materials }}</p>
+                            <p>{{ round.sell_max_goods }}</p>
+                            {% if round.status == 'step1' %}
+                            <input type="text" name="id" value="{{ round.id }}" hidden>
+                            <button type="submit" class="btn btn-primary">Перейти на шаг2</button>
+                            {% elif round.status == 'step2' %}
+                            <input type="text" name="id" value="{{ round.id }}" hidden>
+                            <button type="submit" class="btn btn-primary">Перейти на шаг3</button>
+                            {% elif round.status == 'step3' %}
                             <input type="text" name="id" value="{{ round.id }}" hidden>
                             <button type="submit" class="btn btn-primary">Завершить раунд</button>
-                        {% else %}
-                            <button type="submit" class="btn btn-primary">Начать раунд</button>
+                            {% endif %}
                         {% endif %}
                     </form>
                 </div>
