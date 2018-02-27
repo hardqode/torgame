@@ -43,7 +43,7 @@ class RoundStatus(models.Model):
 
 class Round(models.Model):
     game = models.ForeignKey(Game, on_delete=models.CASCADE)
-    status = models.ForeignKey(RoundStatus, on_delete=models.CASCADE)
+    status = models.ForeignKey(RoundStatus, on_delete=models.CASCADE, blank=True)
     buy_minimal_materials = models.IntegerField(default=0, verbose_name='Покупка сырья')
     sell_max_goods = models.IntegerField(default=0, verbose_name='Продажа продукции')
     recycling = models.IntegerField(default=0, verbose_name='Переработка')
@@ -77,7 +77,6 @@ class TransactionType(models.Model):
 
 class Transaction(models.Model):
     type = models.ForeignKey(TransactionType, on_delete=models.CASCADE)
-    id = models.IntegerField(primary_key=True)
     price = models.IntegerField()
 
     def __str__(self):
@@ -92,7 +91,6 @@ class Transaction(models.Model):
 class MaterialBid(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     round = models.ForeignKey(Round, on_delete=models.CASCADE)
-    id = models.IntegerField(primary_key=True)
     count = models.IntegerField()
     price = models.IntegerField()
 

@@ -29,9 +29,8 @@
                     </tbody>
                 </table>
             </div>
-            {% if user.is_superuser or user.is_staff %}
-                <div class="col-md-4 col-12">
-                    <form>
+            <div class="col-md-4 col-12">
+                    <form action="">
                         {% if not round %}
                         <div class="form-group">
                             <label for="formGroupExampleInput">Количество реализуемого сырья</label>
@@ -84,7 +83,6 @@
                         {% endif %}
                     </form>
                 </div>
-            {% endif %}
             <div class="col-md-8 col-12">
                 <h3>Раунды</h3>
                 <table class="table">

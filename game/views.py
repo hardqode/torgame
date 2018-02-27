@@ -26,22 +26,25 @@ def connect(request):
         return render(request, 'game/connect.html')
 
 
-# имеет доступ только владелец игры
+# TODO имеет доступ только владелец игры
 
 @login_required
 def dashboard(request, game_id):
     """Лобби"""
-    if request.user == User.objects.get('admin'):
+    if request.user == User.objects.get(username='admin'):
         if request.method == 'POST':
             round = Round.objects.get(id=request.POST.get('id'))
             if round.status == 'step1':
-                # Перевести на шаг2. Посчитать лучшие предложения от игроков по закупке сырья(т.е. максимальная сумма)
-                pass
+                # TODO Перевести на шаг2. Посчитать лучшие предложения от игроков по закупке сырья(т.е. максимальная сумма)
+                """ АНЗОР ПРИВЕТ) -> Допустим есть 20 ед сырья и 3 игрока, которые не видят ставки друг друга. Первый предложил купить 5ед за 1000Р каждая,
+                второй 10 по 1500, третий 15 по 2000. Нужно выбрать максимальную цену(3й игрок и по ней продать все сырье
+                которое он запросил, далее у второго игрока оставшееся(5 получается), а первому не остается ничего). В процессе отображать изменения баланса и кол-ва сырья"""
+                round.status = RoundStatus.objects.get(code='step2')
             elif round.status == 'step2':
-                # Перевести на шаг3. Вычесть стоимость налогов, хранения сырья и продукции у игроков. Переработать сырье в продукции.
+                # TODO Перевести на шаг3. Вычесть стоимость налогов(13%), хранения сырья и продукции у игроков(10%). Переработать сырье в продукции.
                 pass
             elif round.status == 'step3':
-                # Завершить раунд. Посчитать лучшее(минимальное по стоимости) предложение о продаже продукции. Посчитать звершающие балансы.
+                # TODO Завершить раунд. Посчитать лучшее(минимальное по стоимости) предложение о продаже продукции. Посчитать звершающие балансы.
                 pass
         game = Game.objects.get_or_404(id = game_id)
         players_list = Player.objects.filter(game = game)
@@ -54,7 +57,9 @@ def dashboard(request, game_id):
         }
         return render(request, 'game/dashboard.html', context)
     else:
+        game = Game.objects.filter(code=request.POST.get('code')).last()
         return HttpResponseRedirect('game/player_screen/' + str(game.id))
+
 
 # имеет доступ только игрок игры
 @login_required
@@ -75,15 +80,42 @@ def create_round(request, game_id):
         return HttpResponseRedirect('game/dashboard.html', args=[game_id])
 
 
+# TODO смотри Схема.jpg
 
-def player_step1(request):
-    pass
 
-def player_step2(request):
-    pass
+@require_POST
+def player_step1(request, round_id):
+    """Заполняет форму по количеству и стоимости покупки сырья"""
+    form = Step1Form(request.POST)
+    if form.is_valid():
+        step1 = form.save()
+        step1.round_id = round_id
+        step1.save()
+        return HttpResponseRedirect('game/dashboard.html', args=[round_id])
 
-def player_step3(request):
-    pass
+
+@require_POST
+def player_step2(request, round_id):
+    """Заполняет форму по кол-ву переработки сырья в продукцию"""
+    form = Step2Form(request.POST)
+    if form.is_valid():
+        step2 = form.save()
+        step2.round_id = round_id
+        step2.save()
+        message = 'Нажмите F5(обновить страницу) для перехода на следующий шаг'
+        return message
+            #HttpResponseRedirect('game/dashboard.html', args=[round_id])
+
+
+@require_POST
+def player_step3(request, round_id):
+    """Заполняет форму по продаже продукции и стоимости"""
+    form = Step3Form(request.POST)
+    if form.is_valid():
+        step3 = form.save()
+        step3.round_id = round_id
+        step3.save()
+        return HttpResponseRedirect('game/dashboard.html', args=[round_id])
 
 
 
