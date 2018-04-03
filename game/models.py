@@ -43,7 +43,7 @@ class RoundStatus(models.Model):
 
 class Round(models.Model):
     game = models.ForeignKey(Game, on_delete=models.CASCADE)
-    status = models.ForeignKey(RoundStatus, on_delete=models.CASCADE, blank=True)
+    status = models.ForeignKey(RoundStatus, on_delete=models.CASCADE, blank=True, null=True)
     buy_minimal_materials = models.IntegerField(default=0, verbose_name='Покупка сырья')
     sell_max_goods = models.IntegerField(default=0, verbose_name='Продажа продукции')
     recycling = models.IntegerField(default=0, verbose_name='Переработка')
