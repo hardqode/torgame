@@ -9,6 +9,7 @@ from .models import *
 from .forms import *
 from django.shortcuts import redirect
 
+
 @login_required
 def connect(request):
     """Если введен корректный номер игры, перекидывает на dashboard"""
