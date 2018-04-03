@@ -9,9 +9,3 @@ venv1
 game/__pycache__/
 tor/.DS_Store
 tor/__pycache__/
-#tor/static/tor/css/bootstrap.css.map
-#tor/static/tor/css/bootstrap.min.css
-#tor/static/tor/css/bootstrap.min.css.map
-#tor/static/tor/js/bootstrap.js.map
-#tor/static/tor/js/bootstrap.min.js
-#tor/static/tor/js/bootstrap.min.js.map
