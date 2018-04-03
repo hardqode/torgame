@@ -39,6 +39,7 @@ def dashboard(request, game_id):
                 """Допустим есть 20 ед сырья и 3 игрока, которые не видят ставки друг друга. Первый предложил купить 5ед за 1000Р каждая,
                 второй 10 по 1500, третий 15 по 2000. Нужно выбрать максимальную цену(3й игрок и по ней продать все сырье
                 которое он запросил, далее у второго игрока оставшееся(5 получается), а первому не остается ничего). В процессе отображать изменения баланса и кол-ва сырья"""
+                # TODO Проверить логику
                 price_list_user = {} #словарь для извлечения юзеров с наибольшей ценой
                 price_list = [] #список из сумм, которые готовы предложить
                 for user in MaterialBid.objects.all(): # добавляем юзеров и их предложенную сумму
@@ -50,6 +51,7 @@ def dashboard(request, game_id):
                     price_list.append(total_price)
                 price_list.sort()
                 price_list.reverse()
+
 
                 for i in range(len(price_list)):  # вычитаем у всех балансы
                     player = get_key(price_list_user, i)  # тут извлекаем игрока
@@ -70,11 +72,15 @@ def dashboard(request, game_id):
                         Game.objects.get(id=game_id).balance = -1
                 round.status = RoundStatus.objects.get(code='step2')
             elif round.status == 'step2':
-                # TODO Перевести на шаг3. Вычесть стоимость налогов(13%), хранения сырья и продукции у игроков(10%). Переработать сырье в продукции.
+                # TODO Перевести на шаг3. Переработать сырье в продукцию.
                 pass
             elif round.status == 'step3':
-                # TODO Завершить раунд. Посчитать лучшее(минимальное по стоимости) предложение о продаже продукции. Посчитать звершающие балансы.
+                # TODO Перевести на шаг4. Реализация продукции. Посчитать лучшее(минимальное по стоимости) предложение о продаже продукции. Занести все в транзакции.
                 pass
+            elif round.status == 'step4':
+                # TODO Завершить раунд. Вычесть стоимость хранения и налоги.
+                pass
+
         game = Game.objects.get_or_404(id = game_id)
         players_list = Player.objects.filter(game = game)
         rounds_list = Round.objects.filter(game=game)
