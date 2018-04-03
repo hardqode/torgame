@@ -44,8 +44,8 @@ class RoundStatus(models.Model):
 class Round(models.Model):
     game = models.ForeignKey(Game, on_delete=models.CASCADE)
     status = models.ForeignKey(RoundStatus, on_delete=models.CASCADE, blank=True, null=True)
-    buy_minimal_materials = models.IntegerField(default=0, verbose_name='Покупка сырья')
-    sell_max_goods = models.IntegerField(default=0, verbose_name='Продажа продукции')
+    buy_minimal_materials = models.IntegerField(default=0, verbose_name='Минимальная стоимость покупки сырья')
+    sell_max_goods = models.IntegerField(default=0, verbose_name='Максимальная стоимость продажи продукции')
     recycling = models.IntegerField(default=0, verbose_name='Переработка')
     store_materials = models.IntegerField(default=0, verbose_name='Хранение сырья')
     store_goods = models.IntegerField(default=0, verbose_name='Хранение продукции')
@@ -63,8 +63,6 @@ class Round(models.Model):
 class TransactionType(models.Model):
     title = models.CharField(max_length=200)
     code = models.CharField(max_length=10)
-    count_materials = models.IntegerField()
-    count_goods = models.IntegerField()
 
     def __str__(self):
         """Возвращает строковое представление модели"""
@@ -78,6 +76,8 @@ class TransactionType(models.Model):
 class Transaction(models.Model):
     type = models.ForeignKey(TransactionType, on_delete=models.CASCADE)
     price = models.IntegerField()
+    count_materials = models.IntegerField()
+    count_goods = models.IntegerField()
 
     def __str__(self):
         """Возвращает строковое представление модели"""

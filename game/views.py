@@ -1,4 +1,4 @@
-from curtsies.events import get_key
+# from curtsies.events import get_key
 from django.shortcuts import render
 from django.http import HttpResponseRedirect, Http404
 from django.contrib.auth.decorators import login_required
@@ -84,7 +84,7 @@ def dashboard(request, game_id):
             'rounds_list': rounds_list,
             'last_round': last_round
         }
-        return render(request, 'game/dashboard.html', context)
+        return render(request, 'game/dashboard.html', {})
     else:
         game = Game.objects.filter(code=request.POST.get('code')).last()
         return HttpResponseRedirect('game/player_screen/' + str(game.id))
